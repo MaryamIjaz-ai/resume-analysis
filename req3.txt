@@ -1,0 +1,19 @@
+# Lab 3 Requirements - ReAct Loop with LangGraph
+# Install with: pip install -r requirements.txt
+
+# LangGraph for agent orchestration
+langgraph>=0.2.0
+langchain>=0.3.0
+langchain-core>=0.3.0
+langchain-ollama>=0.2.0
+
+# From Lab 2 (vector DB and embeddings)
+chromadb>=0.5.0
+sentence-transformers>=3.0.0
+
+# Utilities
+pydantic>=2.0.0
+typing-extensions>=4.0.0
+
+# PDF reading (if testing with real resumes)
+pypdf>=4.0.0

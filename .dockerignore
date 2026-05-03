@@ -1,0 +1,34 @@
+# Python virtual environment
+venv/
+env/
+
+# Environment variables (VERY IMPORTANT)
+.env
+
+# Git files
+.git
+.gitignore
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Logs
+*.log
+
+# Database files
+*.db
+*.sqlite3
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code settings
+.vscode/
+
+# Test / temp files
+*.tmp
+*.bak
+*.swp

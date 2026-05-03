@@ -1,0 +1,86 @@
+[
+    {
+      "query": "Extract skills from this resume: Python, SQL, Machine Learning, Data Analysis",
+      "ground_truth": "The candidate has skills in Python, SQL, Machine Learning, and Data Analysis."
+    },
+    {
+      "query": "Analyze my resume for a Data Scientist job",
+      "ground_truth": "The resume shows strong data science skills and relevant experience for a Data Scientist role."
+    },
+    {
+      "query": "Calculate skill match for Python and SQL against job requiring Python, SQL, and AWS",
+      "ground_truth": "The skill match is partial because AWS is missing."
+    },
+    {
+      "query": "Calculate ATS score for a resume with proper formatting and keywords",
+      "ground_truth": "The ATS score is high due to good formatting and keyword optimization."
+    },
+    {
+      "query": "Suggest improvements for a resume missing technical skills",
+      "ground_truth": "The resume should include more technical skills and measurable achievements."
+    },
+    {
+      "query": "Write a professional job application email",
+      "ground_truth": "A formal email expressing interest, highlighting skills, and requesting consideration is generated."
+    },
+    {
+      "query": "Analyze resume and generate email for job application",
+      "ground_truth": "The system analyzes the resume, evaluates fit, and produces a professional email."
+    },
+    {
+      "query": "Find relevant experience from resume for software engineering role",
+      "ground_truth": "Relevant programming and project experience is identified."
+    },
+    {
+      "query": "Compare candidate skills with job description",
+      "ground_truth": "Matching and missing skills are identified."
+    },
+    {
+      "query": "Generate improvement suggestions and email for job application",
+      "ground_truth": "The system provides suggestions and generates a polished application email."
+    },
+    {
+      "query": "What skills are required for a Data Analyst role?",
+      "ground_truth": "Typical skills include SQL, Excel, data visualization, and analytical thinking."
+    },
+    {
+      "query": "Query knowledge base for resume best practices",
+      "ground_truth": "Best practices include clear formatting, relevant keywords, and measurable achievements."
+    },
+    {
+      "query": "How to improve ATS score?",
+      "ground_truth": "Use keywords, proper formatting, and relevant experience."
+    },
+    {
+      "query": "Check if resume matches job description",
+      "ground_truth": "The system evaluates alignment between resume and job requirements."
+    },
+    {
+      "query": "Generate email for job application with strong tone",
+      "ground_truth": "A confident and professional email is generated."
+    },
+    {
+      "query": "Extract skills and calculate match score",
+      "ground_truth": "Skills are extracted and compared to job requirements to compute match score."
+    },
+    {
+      "query": "Analyze resume and suggest improvements",
+      "ground_truth": "Weak areas are identified and actionable improvements are suggested."
+    },
+    {
+      "query": "Write a cover email for software engineer role",
+      "ground_truth": "A tailored cover email highlighting relevant skills is generated."
+    },
+    {
+      "query": "Find missing skills in resume",
+      "ground_truth": "Skills missing compared to job requirements are identified."
+    },
+    {
+      "query": "Evaluate resume for ATS compatibility",
+      "ground_truth": "The resume is evaluated based on formatting, keywords, and structure."
+    },
+    {
+      "query": "End-to-end resume analysis and job application",
+      "ground_truth": "The system performs full workflow: extract skills, evaluate, suggest improvements, and generate email."
+    }
+  ]
