@@ -153,9 +153,16 @@ def predicted_tool(output: str) -> str:
 # ════════════════════════════════════════════════════════════
 
 print("[Eval] Initializing model...")
-judge_model = OllamaDeepEval()
-relevancy_metric = AnswerRelevancyMetric(model=judge_model)
-print("[Eval] Ready\n")
+def simple_relevancy(actual, expected):
+    actual = actual.lower()
+    expected = expected.lower()
+
+    match_count = 0
+    for word in expected.split():
+        if word in actual:
+            match_count += 1
+
+    return match_count / len(expected.split())
 
 
 # ════════════════════════════════════════════════════════════
@@ -183,7 +190,9 @@ for item in dataset:
     )
 
     try:
-        score = relevancy_metric.measure(test_case)
+        score = simple_relevancy(output, expected)
+        scores.append(score)
+        print(f"Relevancy Score: {score:.2f}")
         scores.append(score)
     except:
         scores.append(0)
