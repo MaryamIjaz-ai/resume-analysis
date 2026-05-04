@@ -28,6 +28,11 @@ with open("test_dataset.json", "r", encoding="utf-8") as f:
 
 dataset = dataset[:3]
 
+with open("eval_thresholds.json") as f:
+    thresholds = json.load(f)
+
+REL_THRESHOLD = thresholds["relevancy"]
+TOOL_THRESHOLD = thresholds["tool_accuracy"]
 
 # ════════════════════════════════════════════════════════════
 # LOAD THRESHOLDS
@@ -246,6 +251,33 @@ with open("results.json", "w") as f:
 all_passed = all(metric["passed"] for metric in results.values())
 
 if all_passed:
+    print("\n✅ QUALITY GATE PASSED")
+    sys.exit(0)
+else:
+    print("\n❌ QUALITY GATE FAILED")
+    sys.exit(1)
+
+results = {
+    "metrics": {
+        "relevancy": {
+            "score": avg_rel,
+            "threshold": REL_THRESHOLD,
+            "pass": avg_rel >= REL_THRESHOLD
+        },
+        "tool_accuracy": {
+            "score": tool_acc,
+            "threshold": TOOL_THRESHOLD,
+            "pass": tool_acc >= TOOL_THRESHOLD
+        }
+    },
+    "overall_pass": avg_rel >= REL_THRESHOLD and tool_acc >= TOOL_THRESHOLD
+}
+
+with open("results.json", "w") as f:
+    json.dump(results, f, indent=4)
+
+# Exit code for CI
+if results["overall_pass"]:
     print("\n✅ QUALITY GATE PASSED")
     sys.exit(0)
 else:

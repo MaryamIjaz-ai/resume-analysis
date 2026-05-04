@@ -2,32 +2,23 @@ name: AI Quality Gate
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   evaluate:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: 3.10
 
-      - name: Install Dependencies
-        run: |
-          pip install -r requirements.txt
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
-      - name: Run Evaluation
-        run: |
-          python run_eval.py
-
-      - name: Upload Results
-        uses: actions/upload-artifact@v4
-        with:
-          name: eval-results
-          path: eval_results.json
+      - name: Run evaluation
+        run: python run_eval.py
