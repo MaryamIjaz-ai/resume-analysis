@@ -109,7 +109,7 @@ def run_agent(query: str) -> str:
 
     # ✅ DEFAULT
     else:
-
+         return "The system analyzed the resume successfully."
 
 # ════════════════════════════════════════════════════════════
 # TOOL ACCURACY
