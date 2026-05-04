@@ -198,7 +198,6 @@ for item in dataset:
         score = simple_relevancy(output, expected)
         scores.append(score)
         print(f"Relevancy Score: {score:.2f}")
-        scores.append(score)
     except:
         scores.append(0)
 
@@ -230,17 +229,17 @@ print(f"Tool Accuracy: {tool_accuracy:.2f}")
 results = {
     "metrics": {
         "relevancy": {
-            "score": avg_rel,
+            "score": avg_relevancy,
             "threshold": REL_THRESHOLD,
-            "pass": avg_rel >= REL_THRESHOLD
+            "pass": avg_relevancy >= REL_THRESHOLD
         },
         "tool_accuracy": {
-            "score": tool_acc,
+            "score": tool_accuracy,
             "threshold": TOOL_THRESHOLD,
-            "pass": tool_acc >= TOOL_THRESHOLD
+            "pass": tool_accuracy >= TOOL_THRESHOLD
         }
     },
-    "overall_pass": avg_rel >= REL_THRESHOLD and tool_acc >= TOOL_THRESHOLD
+    "overall_pass": avg_relevancy >= REL_THRESHOLD and tool_accuracy >= TOOL_THRESHOLD
 }
 
 with open("results.json", "w") as f:
