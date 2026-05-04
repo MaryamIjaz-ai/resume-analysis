@@ -228,36 +228,6 @@ print(f"Tool Accuracy: {tool_accuracy:.2f}")
 # ════════════════════════════════════════════════════════════
 
 results = {
-    "relevancy": {
-        "score": avg_relevancy,
-        "threshold": REL_THRESHOLD,
-        "passed": avg_relevancy >= REL_THRESHOLD
-    },
-    "tool_accuracy": {
-        "score": tool_accuracy,
-        "threshold": TOOL_THRESHOLD,
-        "passed": tool_accuracy >= TOOL_THRESHOLD
-    }
-}
-
-with open("results.json", "w") as f:
-    json.dump(results, f, indent=4)
-
-
-# ════════════════════════════════════════════════════════════
-# PASS / FAIL LOGIC (CRITICAL)
-# ════════════════════════════════════════════════════════════
-
-all_passed = all(metric["passed"] for metric in results.values())
-
-if all_passed:
-    print("\n✅ QUALITY GATE PASSED")
-    sys.exit(0)
-else:
-    print("\n❌ QUALITY GATE FAILED")
-    sys.exit(1)
-
-results = {
     "metrics": {
         "relevancy": {
             "score": avg_rel,
