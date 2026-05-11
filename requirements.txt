@@ -1,16 +1,3 @@
-openai
-deepeval
-langchain
-langgraph
 fastapi
 uvicorn
 pydantic
-langchain-ollama
-sentence-transformers
-chromadb
-tiktoken
-pypdf
-python-dotenv
-rich
-pandas
-numpy

@@ -1,0 +1,13 @@
+data: {"node": "researcher_tools", "content": "Extracted 1 skills from resume:\n\nProgramming Languages: R"}
+
+data: {"node": "researcher", "content": "Based on the extracted skills, here is a summary of your qualifications:\n\n**Summary:** You have expertise in programming with R.\n\nWould you like me to suggest any potential job openings or provide feedback on how to highlight these skills in your resume?"}
+
+data: {"node": "writer", "content": "Also, I can help you format your resume for better readability and clarity. Would you like me to assist with that as well?"}
+
+data: {"node": "human_review", "content": "APPROVE: Automatically approved for API execution"}
+
+data: {"node": "executor_tools", "content": "\u274c EMAIL SEND FAILED: Authentication Error\n\nGmail rejected the login credentials.\n\nSetup Instructions:\n1. Go to: https://myaccount.google.com/apppasswords\n2. Enable 2-Factor Authentication if not already enabled\n3. Generate an 'App Password' for 'Mail'\n4. Use the 16-character app password (not your regular password)\n\nError: Invalid email or app password"}
+
+data: {"node": "executor", "content": "It looks like there was an issue with sending your resume via email. To resolve this, please follow the setup instructions provided.\n\nIf you need help generating a new app password or setting up 2-factor authentication, I can guide you through those steps.\n\nWould you like me to assist with that?"}
+
+data: [DONE]

@@ -76,7 +76,7 @@ print("[System] Initializing Ollama LLM...")
 llm = ChatOllama(
     model="llama3.2",
     temperature=0,
-    base_url="http://host.docker.internal:11434"
+    base_url="http://localhost:11434"
 )
 print("[System] LLM initialized.\n")
 
@@ -198,21 +198,25 @@ def route_analyst(state: MultiAgentState) -> Literal["analyst_tools", "writer"]:
     return "writer"
 
 
-def route_writer(state: MultiAgentState) -> Literal["writer_tools", "human_review", "end"]:
+def route_writer(state: MultiAgentState) -> Literal["writer_tools", "end"]:
+
     last_msg = state["messages"][-1]
 
-    # If tool call → continue
+    # Continue tool usage if needed
     if hasattr(last_msg, "tool_calls") and last_msg.tool_calls:
         return "writer_tools"
 
-    # ✅ Prevent repeated HITL
-    if state.get("human_review_done", False):
-        print("\n[Writer] HITL already completed → Ending workflow")
-        return "end"
+    # STOP after writer
+    print("\n[Workflow] Email draft generated successfully.")
+    print("[Workflow] Skipping Executor email sending.")
 
-    trace_logger.log("Writer", "HANDOVER", "Email drafted. Transferring to Human Review (HITL)")
-    print("\n[Handover] Writer -> Human Review (HITL Safety Pause)")
-    return "human_review"
+    trace_logger.log(
+        "Writer",
+        "WORKFLOW COMPLETE",
+        "Email drafted successfully. SMTP sending skipped."
+    )
+
+    return "end"
 
 
 def route_human_decision(state: MultiAgentState) -> Literal["executor", "end"]:
@@ -278,35 +282,47 @@ def create_multi_agent_graph():
     # Set entry
     workflow.set_entry_point("researcher")
     
-    # Routing
+    # ───────────────────────────────────────────────────────────
+    # Researcher Routing
+    # ───────────────────────────────────────────────────────────
     workflow.add_conditional_edges(
-        "researcher", route_researcher,
-        {"researcher_tools": "researcher_tools", "analyst": "analyst"}
+        "researcher",
+        route_researcher,
+        {
+            "researcher_tools": "researcher_tools",
+            "analyst": "analyst"
+        }
     )
+    
     workflow.add_edge("researcher_tools", "researcher")
     
+    # ───────────────────────────────────────────────────────────
+    # Analyst Routing
+    # ───────────────────────────────────────────────────────────
     workflow.add_conditional_edges(
-        "analyst", route_analyst,
-        {"analyst_tools": "analyst_tools", "writer": "writer"}
+        "analyst",
+        route_analyst,
+        {
+            "analyst_tools": "analyst_tools",
+            "writer": "writer"
+        }
     )
+    
     workflow.add_edge("analyst_tools", "analyst")
     
+    # ───────────────────────────────────────────────────────────
+    # Writer Routing
+    # ───────────────────────────────────────────────────────────
     workflow.add_conditional_edges(
-        "writer", route_writer,
-        {"writer_tools": "writer_tools", "human_review": "human_review"}
+        "writer",
+        route_writer,
+        {
+            "writer_tools": "writer_tools",
+            "end": END
+        }
     )
+    
     workflow.add_edge("writer_tools", "writer")
-    
-    workflow.add_conditional_edges(
-        "human_review", route_human_decision,
-        {"executor": "executor", "end": END}
-    )
-    
-    workflow.add_conditional_edges(
-        "executor", route_executor,
-        {"executor_tools": "executor_tools", "end": END}
-    )
-    workflow.add_edge("executor_tools", "executor")
     
     # Add persistent memory
     memory = MemorySaver()
@@ -319,9 +335,7 @@ def create_multi_agent_graph():
     
     return app
 
-
 multi_agent_graph = create_multi_agent_graph()
-
 
 # ════════════════════════════════════════════════════════════
 #  USER INPUT FUNCTIONS
